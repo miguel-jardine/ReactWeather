@@ -19,6 +19,7 @@ var Weather = React.createClass({
         var that = this;
         that.setState({isLoading: true});
 
+
         OpenWeatherMapAPI.getTemperature(newState.city).then(
             function (tempPkg) {
                 var {city} = newState;
