@@ -5,7 +5,30 @@ var
 end_var_def = [];
 
 module.exports = {
-    entry: "./app/app.jsx",
+    entry: [
+        "script!jquery/dist/jquery.min.js",
+        "script!foundation-sites/dist/foundation.min.js",
+        "./app/app.jsx"
+    ],
+    externals: {
+        jquery: "jQuery"
+    },
+    plugins: debug ? 
+        [
+            new webpack.ProvidePlugin({
+                "$": "jquery",
+                "jQuery": "jquery"
+            })
+        ] : 
+        [
+            new webpack.optimize.DedupePlugin(),
+            new webpack.optimize.OccurenceOrderPlugin(),
+            new webpack.optimize.UglifyJsPlugin({mangle: false, sourcemap: false}),
+            new webpack.ProvidePlugin({
+                "$": "jquery",
+                "jQuery": "jquery"
+            })
+        ],
     output: {
         path: __dirname,
         filename: "./public/bundle.js"
@@ -36,10 +59,5 @@ module.exports = {
             }
         ]
     },
-    devtool: debug ? "eval-source-map" : null,
-    plugins: debug ? [] : [
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin({mangle: false, sourcemap: false})
-    ]
+    devtool: debug ? "eval-source-map" : null
 };
