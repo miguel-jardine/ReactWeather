@@ -1,16 +1,10 @@
-var 
-    React       = require("react"),
 
-end_var_def = [];
-
-
-var Examples = React.createClass({
-    render: function () {
+var Examples = () => {
         return (
-            <h3>Examples Component</h3>
+            <div>
+                <h3>Examples</h3>
+            </div>
         );
-    }
-
-});
+}
 
 module.exports = Examples;
