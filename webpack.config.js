@@ -1,3 +1,9 @@
+var 
+    debug = process.env.NODE_ENV !== "production",
+    webpack = require("webpack"),
+
+end_var_def = [];
+
 module.exports = {
     entry: "./app/app.jsx",
     output: {
@@ -30,5 +36,10 @@ module.exports = {
             }
         ]
     },
-    devtool: "eval-source-map"
+    devtool: debug ? "eval-source-map" : null,
+    plugins: debug ? [] : [
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.UglifyJsPlugin({mangle: false, sourcemap: false})
+    ]
 };
