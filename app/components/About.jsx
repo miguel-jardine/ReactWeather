@@ -1,16 +1,11 @@
-var 
-    React       = require("react"),
 
-end_var_def = [];
-
-
-var About = React.createClass({
-    render: function () {
+var About = () => {
         return (
-            <h3>About Component</h3>
+            <div>
+                <h3>About</h3>
+                <p>Welcome to the About page!</p>
+            </div>
         );
-    }
-
-});
+}
 
 module.exports = About;
