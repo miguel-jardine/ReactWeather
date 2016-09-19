@@ -2,6 +2,7 @@ var
     React               = require("react"),
     WeatherForm         = require("WeatherForm"),
     WeatherMessage      = require("WeatherMessage"),
+    ErrorModal          = require("ErrorModal"),
     OpenWeatherMapAPI   = require("OpenWeatherMapAPI"),
 
 end_var_def = [];
@@ -17,7 +18,10 @@ var Weather = React.createClass({
 
     _cHandleSubmit: function (newState) {
         var that = this;
-        that.setState({isLoading: true});
+        that.setState({
+            isLoading: true,
+            errorMessage: undefined
+        });
 
         OpenWeatherMapAPI.getTemperature(newState.city).then(
             function (tempPkg) {
@@ -31,19 +35,22 @@ var Weather = React.createClass({
             },
             function (err) {
                 console.log(err);
-                that.setState({isLoading: false});
+                that.setState({
+                    isLoading: false,
+                    errorMessage: err.message
+                });
             }
         )
     },
 
 
     render: function () {
-        var {isLoading, city, temp} = this.state;
+        var {isLoading, city, temp, errorMessage} = this.state;
 
         function renderMessage () {
             if (isLoading) {
                 return (
-                    <h3>Fetching weather...</h3>
+                    <h3 className="text-center">Fetching weather...</h3>
                 );
             } else if (city && temp) {
                 return (
@@ -52,11 +59,18 @@ var Weather = React.createClass({
             }
         }
 
+        function renderError () {
+            if (typeof errorMessage === "string") {
+                return <ErrorModal message={errorMessage} />
+            }
+        }
+
         return (
             <div>
-                <h3>Get Weather</h3>
+                <h3 className="text-center">Get Weather</h3>
                 <WeatherForm onSubmit={this._cHandleSubmit} />
                 {renderMessage()}
+                {renderError()}
             </div>
 
         );
