@@ -7,7 +7,7 @@ end_var_def = [];
 var Examples = () => {
         return (
             <div>
-                <h2 className="text-center">Examples</h2>
+                <h2 className="text-center page-title">Examples</h2>
                 <p>Here are a few cities to try:</p>
                 <ol>
                     <li>

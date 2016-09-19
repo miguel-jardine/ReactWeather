@@ -67,7 +67,7 @@ var Weather = React.createClass({
 
         return (
             <div>
-                <h3 className="text-center">Get Weather</h3>
+                <h2 className="text-center page-title">Get Weather</h2>
                 <WeatherForm onSubmit={this._cHandleSubmit} />
                 {renderMessage()}
                 {renderError()}

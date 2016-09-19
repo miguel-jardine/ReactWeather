@@ -3,7 +3,7 @@ var React = require("react");
 var About = () => {
         return (
             <div>
-                <h2 className="text-center">About</h2>
+                <h2 className="text-center page-title">About</h2>
                 <p>
                 This is a weather app demonstrating React. It uses a few cool technologies and libraries.
                 They include:
