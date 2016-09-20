@@ -20,7 +20,9 @@ var Weather = React.createClass({
         var that = this;
         that.setState({
             isLoading: true,
-            errorMessage: undefined
+            errorMessage: undefined,
+            city: undefined,
+            temp: undefined
         });
 
         OpenWeatherMapAPI.getTemperature(newState.city).then(
@@ -41,6 +43,26 @@ var Weather = React.createClass({
                 });
             }
         )
+    },
+
+
+    componentDidMount: function () {
+        var city = this.props.location.query.city;
+        this._redirect(city)
+    },
+
+
+    componentWillReceiveProps: function (props) {
+        var city = props.location.query.city;
+        this._redirect(city)
+    },
+
+
+    _redirect: function (city) {
+        if (city && city.length > 0) {
+            this._cHandleSubmit({city: city});
+            window.location.hash = "#/";
+        } 
     },
 
 
